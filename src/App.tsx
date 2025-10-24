@@ -1,24 +1,23 @@
-import { useState } from 'react'
-import './App.css'
+import { useEffect } from 'react'
+import LandingPage from './components/landing-page'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Ensure we're always at the root URL
+  useEffect(() => {
+    if (window.location.pathname !== '/') {
+      window.history.replaceState({}, '', '/')
+    }
+  }, [])
+
+  const handleLoginClick = () => {
+    console.log('Login clicked!')
+    // Ensure we stay at the root URL
+    window.history.replaceState({}, '', '/')
+    // Add your login logic here
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>MIS Project</h1>
-        <p>Welcome to your React TypeScript project!</p>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-        </div>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </header>
-    </div>
+    <LandingPage onLoginClick={handleLoginClick} />
   )
 }
 
