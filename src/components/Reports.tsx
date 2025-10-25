@@ -1,68 +1,129 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Label } from './ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { FileText, Download, Calendar, TrendingUp, Package, Users, DollarSign } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Label } from "./ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import {
+  FileText,
+  Download,
+  Calendar,
+  TrendingUp,
+  Package,
+  Users,
+  DollarSign,
+} from "lucide-react";
+import { toast } from "sonner";
 
 const salesPerformanceData = [
-  { month: 'Jan', target: 80000, actual: 85000 },
-  { month: 'Feb', target: 85000, actual: 92000 },
-  { month: 'Mar', target: 85000, actual: 88000 },
-  { month: 'Apr', target: 90000, actual: 98000 },
-  { month: 'May', target: 90000, actual: 95000 },
-  { month: 'Jun', target: 95000, actual: 105000 },
+  { month: "Jan", target: 80000, actual: 85000 },
+  { month: "Feb", target: 85000, actual: 92000 },
+  { month: "Mar", target: 85000, actual: 88000 },
+  { month: "Apr", target: 90000, actual: 98000 },
+  { month: "May", target: 90000, actual: 95000 },
+  { month: "Jun", target: 95000, actual: 105000 },
 ];
 
 const supplierReliability = [
-  { supplier: 'Lanka Cement Co.', onTime: 95, quality: 92, cost: 88 },
-  { supplier: 'Steel Masters Ltd', onTime: 98, quality: 96, cost: 85 },
-  { supplier: 'Electro Supplies', onTime: 88, quality: 85, cost: 92 },
-  { supplier: 'PVC Industries', onTime: 92, quality: 90, cost: 90 },
+  { supplier: "Lanka Cement Co.", onTime: 95, quality: 92, cost: 88 },
+  { supplier: "Steel Masters Ltd", onTime: 98, quality: 96, cost: 85 },
+  { supplier: "Electro Supplies", onTime: 88, quality: 85, cost: 92 },
+  { supplier: "PVC Industries", onTime: 92, quality: 90, cost: 90 },
 ];
 
 const employeeProductivity = [
-  { department: 'Sales', target: 100, achieved: 112 },
-  { department: 'Operations', target: 100, achieved: 95 },
-  { department: 'Finance', target: 100, achieved: 105 },
-  { department: 'HR', target: 100, achieved: 98 },
+  { department: "Sales", target: 100, achieved: 112 },
+  { department: "Operations", target: 100, achieved: 95 },
+  { department: "Finance", target: 100, achieved: 105 },
+  { department: "HR", target: 100, achieved: 98 },
 ];
 
 const customerSatisfactionTrends = [
-  { month: 'Jan', score: 4.1 },
-  { month: 'Feb', score: 4.2 },
-  { month: 'Mar', score: 4.0 },
-  { month: 'Apr', score: 4.3 },
-  { month: 'May', score: 4.4 },
-  { month: 'Jun', score: 4.3 },
+  { month: "Jan", score: 4.1 },
+  { month: "Feb", score: 4.2 },
+  { month: "Mar", score: 4.0 },
+  { month: "Apr", score: 4.3 },
+  { month: "May", score: 4.4 },
+  { month: "Jun", score: 4.3 },
 ];
 
 const reportTypes = [
-  { id: 'sales', name: 'Sales Performance Report', description: 'Detailed sales metrics and trends', icon: DollarSign },
-  { id: 'inventory', name: 'Inventory Status Report', description: 'Stock levels and movement analysis', icon: Package },
-  { id: 'supplier', name: 'Supplier Performance Report', description: 'Supplier reliability and metrics', icon: TrendingUp },
-  { id: 'employee', name: 'Employee Productivity Report', description: 'HR metrics and productivity analysis', icon: Users },
-  { id: 'customer', name: 'Customer Satisfaction Report', description: 'Customer feedback and satisfaction trends', icon: FileText },
-  { id: 'financial', name: 'Financial Summary Report', description: 'Revenue, expenses, and profit analysis', icon: DollarSign },
+  {
+    id: "sales",
+    name: "Sales Performance Report",
+    description: "Detailed sales metrics and trends",
+    icon: DollarSign,
+  },
+  {
+    id: "inventory",
+    name: "Inventory Status Report",
+    description: "Stock levels and movement analysis",
+    icon: Package,
+  },
+  {
+    id: "supplier",
+    name: "Supplier Performance Report",
+    description: "Supplier reliability and metrics",
+    icon: TrendingUp,
+  },
+  {
+    id: "employee",
+    name: "Employee Productivity Report",
+    description: "HR metrics and productivity analysis",
+    icon: Users,
+  },
+  {
+    id: "customer",
+    name: "Customer Satisfaction Report",
+    description: "Customer feedback and satisfaction trends",
+    icon: FileText,
+  },
+  {
+    id: "financial",
+    name: "Financial Summary Report",
+    description: "Revenue, expenses, and profit analysis",
+    icon: DollarSign,
+  },
 ];
 
 export default function Reports() {
-  const [selectedReport, setSelectedReport] = useState('sales');
-  const [dateRange, setDateRange] = useState('thisMonth');
+  const [selectedReport, setSelectedReport] = useState("sales");
+  const [dateRange, setDateRange] = useState("thisMonth");
 
   const handleExportPDF = () => {
-    toast.success('Report exported as PDF');
+    toast.success("Report exported as PDF");
   };
 
   const handleExportExcel = () => {
-    toast.success('Report exported as Excel');
+    toast.success("Report exported as Excel");
   };
 
   const handleGenerateReport = () => {
-    toast.success('Report generated successfully');
+    toast.success("Report generated successfully");
   };
 
   return (
@@ -70,7 +131,9 @@ export default function Reports() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl">Reports & Analytics</h1>
-          <p className="text-gray-600 mt-1">Generate and export comprehensive reports</p>
+          <p className="text-gray-600 mt-1">
+            Generate and export comprehensive reports
+          </p>
         </div>
         <div className="flex gap-3">
           <Button variant="outline" onClick={handleExportExcel}>
@@ -81,7 +144,10 @@ export default function Reports() {
             <Download className="w-4 h-4 mr-2" />
             Export PDF
           </Button>
-          <Button className="bg-blue-600 hover:bg-blue-700" onClick={handleGenerateReport}>
+          <Button
+            className="bg-blue-600 hover:bg-blue-700"
+            onClick={handleGenerateReport}
+          >
             <FileText className="w-4 h-4 mr-2" />
             Generate Report
           </Button>
@@ -147,7 +213,11 @@ export default function Reports() {
         {reportTypes.map((type) => {
           const Icon = type.icon;
           return (
-            <Card key={type.id} className="cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setSelectedReport(type.id)}>
+            <Card
+              key={type.id}
+              className="cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => setSelectedReport(type.id)}
+            >
               <CardHeader>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
@@ -176,7 +246,9 @@ export default function Reports() {
           <Card>
             <CardHeader>
               <CardTitle>Sales Performance: Target vs Actual</CardTitle>
-              <CardDescription>Monthly sales comparison for 2025</CardDescription>
+              <CardDescription>
+                Monthly sales comparison for 2025
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={350}>
@@ -186,8 +258,21 @@ export default function Reports() {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="target" stroke="#94a3b8" strokeWidth={2} name="Target" strokeDasharray="5 5" />
-                  <Line type="monotone" dataKey="actual" stroke="#3b82f6" strokeWidth={2} name="Actual" />
+                  <Line
+                    type="monotone"
+                    dataKey="target"
+                    stroke="#94a3b8"
+                    strokeWidth={2}
+                    name="Target"
+                    strokeDasharray="5 5"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="actual"
+                    stroke="#3b82f6"
+                    strokeWidth={2}
+                    name="Actual"
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -231,7 +316,9 @@ export default function Reports() {
           <Card>
             <CardHeader>
               <CardTitle>Supplier Performance Metrics</CardTitle>
-              <CardDescription>On-time delivery, quality, and cost ratings</CardDescription>
+              <CardDescription>
+                On-time delivery, quality, and cost ratings
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={350}>
@@ -254,7 +341,9 @@ export default function Reports() {
           <Card>
             <CardHeader>
               <CardTitle>Department Productivity</CardTitle>
-              <CardDescription>Target vs achieved productivity by department</CardDescription>
+              <CardDescription>
+                Target vs achieved productivity by department
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={350}>
@@ -276,7 +365,9 @@ export default function Reports() {
           <Card>
             <CardHeader>
               <CardTitle>Customer Satisfaction Trends</CardTitle>
-              <CardDescription>Monthly satisfaction score trends</CardDescription>
+              <CardDescription>
+                Monthly satisfaction score trends
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={350}>
@@ -286,7 +377,13 @@ export default function Reports() {
                   <YAxis domain={[0, 5]} />
                   <Tooltip />
                   <Legend />
-                  <Line type="monotone" dataKey="score" stroke="#3b82f6" strokeWidth={2} name="Satisfaction Score" />
+                  <Line
+                    type="monotone"
+                    dataKey="score"
+                    stroke="#3b82f6"
+                    strokeWidth={2}
+                    name="Satisfaction Score"
+                  />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>

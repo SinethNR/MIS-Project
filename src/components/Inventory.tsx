@@ -1,39 +1,125 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Badge } from './ui/badge';
-import { Textarea } from './ui/textarea';
-import { Alert, AlertDescription } from './ui/alert';
-import { Plus, Search, AlertTriangle, Package, TrendingDown, TrendingUp, Edit } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Badge } from "./ui/badge";
+import { Textarea } from "./ui/textarea";
+import { Alert, AlertDescription } from "./ui/alert";
+import {
+  Plus,
+  Search,
+  AlertTriangle,
+  Package,
+  TrendingDown,
+  TrendingUp,
+  Edit,
+} from "lucide-react";
+import { toast } from "sonner";
 
 const products = [
-  { id: 1, name: 'Cement Bags (50kg)', category: 'Construction', stock: 450, reorderLevel: 200, warehouse: 'Main Warehouse', price: 850, status: 'In Stock' },
-  { id: 2, name: 'Steel Rods (12mm)', category: 'Construction', stock: 180, reorderLevel: 150, warehouse: 'Main Warehouse', price: 1200, status: 'Low Stock' },
-  { id: 3, name: 'Electrical Wire (100m)', category: 'Electrical', stock: 320, reorderLevel: 100, warehouse: 'East Warehouse', price: 2500, status: 'In Stock' },
-  { id: 4, name: 'PVC Pipes (4inch)', category: 'Plumbing', stock: 85, reorderLevel: 100, warehouse: 'Main Warehouse', price: 450, status: 'Low Stock' },
-  { id: 5, name: 'Paint Cans (5L)', category: 'Paint', stock: 240, reorderLevel: 80, warehouse: 'East Warehouse', price: 1800, status: 'In Stock' },
-  { id: 6, name: 'Junction Box', category: 'Electrical', stock: 45, reorderLevel: 50, warehouse: 'Main Warehouse', price: 350, status: 'Critical' },
+  {
+    id: 1,
+    name: "Cement Bags (50kg)",
+    category: "Construction",
+    stock: 450,
+    reorderLevel: 200,
+    warehouse: "Main Warehouse",
+    price: 850,
+    status: "In Stock",
+  },
+  {
+    id: 2,
+    name: "Steel Rods (12mm)",
+    category: "Construction",
+    stock: 180,
+    reorderLevel: 150,
+    warehouse: "Main Warehouse",
+    price: 1200,
+    status: "Low Stock",
+  },
+  {
+    id: 3,
+    name: "Electrical Wire (100m)",
+    category: "Electrical",
+    stock: 320,
+    reorderLevel: 100,
+    warehouse: "East Warehouse",
+    price: 2500,
+    status: "In Stock",
+  },
+  {
+    id: 4,
+    name: "PVC Pipes (4inch)",
+    category: "Plumbing",
+    stock: 85,
+    reorderLevel: 100,
+    warehouse: "Main Warehouse",
+    price: 450,
+    status: "Low Stock",
+  },
+  {
+    id: 5,
+    name: "Paint Cans (5L)",
+    category: "Paint",
+    stock: 240,
+    reorderLevel: 80,
+    warehouse: "East Warehouse",
+    price: 1800,
+    status: "In Stock",
+  },
+  {
+    id: 6,
+    name: "Junction Box",
+    category: "Electrical",
+    stock: 45,
+    reorderLevel: 50,
+    warehouse: "Main Warehouse",
+    price: 350,
+    status: "Critical",
+  },
 ];
 
 const warehouses = [
-  { name: 'Main Warehouse', location: 'Colombo', capacity: '85%', items: 1247 },
-  { name: 'East Warehouse', location: 'Battaramulla', capacity: '62%', items: 856 },
-  { name: 'South Warehouse', location: 'Galle', capacity: '41%', items: 423 },
+  { name: "Main Warehouse", location: "Colombo", capacity: "85%", items: 1247 },
+  {
+    name: "East Warehouse",
+    location: "Battaramulla",
+    capacity: "62%",
+    items: 856,
+  },
+  { name: "South Warehouse", location: "Galle", capacity: "41%", items: 423 },
 ];
 
 export default function Inventory() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
 
-  const lowStockItems = products.filter(p => p.stock < p.reorderLevel);
+  const lowStockItems = products.filter((p) => p.stock < p.reorderLevel);
 
   const handleAddProduct = () => {
-    toast.success('Product added successfully');
+    toast.success("Product added successfully");
     setIsAddProductOpen(false);
   };
 
@@ -106,9 +192,15 @@ export default function Inventory() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="product-description">Description</Label>
-                <Textarea id="product-description" placeholder="Product description" />
+                <Textarea
+                  id="product-description"
+                  placeholder="Product description"
+                />
               </div>
-              <Button onClick={handleAddProduct} className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button
+                onClick={handleAddProduct}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
                 Add Product
               </Button>
             </div>
@@ -120,7 +212,8 @@ export default function Inventory() {
         <Alert className="border-orange-200 bg-orange-50">
           <AlertTriangle className="h-4 w-4 text-orange-600" />
           <AlertDescription className="text-orange-800">
-            {lowStockItems.length} product(s) below reorder threshold. Consider restocking soon.
+            {lowStockItems.length} product(s) below reorder threshold. Consider
+            restocking soon.
           </AlertDescription>
         </Alert>
       )}
@@ -143,7 +236,9 @@ export default function Inventory() {
             <TrendingDown className="h-4 w-4 text-orange-600" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl text-orange-600">{lowStockItems.length}</div>
+            <div className="text-2xl text-orange-600">
+              {lowStockItems.length}
+            </div>
             <p className="text-xs text-gray-600 mt-1">Need reordering</p>
           </CardContent>
         </Card>
@@ -181,7 +276,9 @@ export default function Inventory() {
             {warehouses.map((warehouse) => (
               <div key={warehouse.name} className="border rounded-lg p-4">
                 <h3 className="mb-2">{warehouse.name}</h3>
-                <p className="text-sm text-gray-600 mb-3">{warehouse.location}</p>
+                <p className="text-sm text-gray-600 mb-3">
+                  {warehouse.location}
+                </p>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Capacity:</span>
@@ -244,16 +341,18 @@ export default function Inventory() {
                     <td className="py-3 px-4">{product.category}</td>
                     <td className="py-3 px-4">{product.stock}</td>
                     <td className="py-3 px-4">{product.reorderLevel}</td>
-                    <td className="py-3 px-4">{product.price.toLocaleString()}</td>
+                    <td className="py-3 px-4">
+                      {product.price.toLocaleString()}
+                    </td>
                     <td className="py-3 px-4">{product.warehouse}</td>
                     <td className="py-3 px-4">
                       <Badge
                         variant={
-                          product.status === 'In Stock'
-                            ? 'default'
-                            : product.status === 'Low Stock'
-                            ? 'secondary'
-                            : 'destructive'
+                          product.status === "In Stock"
+                            ? "default"
+                            : product.status === "Low Stock"
+                            ? "secondary"
+                            : "destructive"
                         }
                       >
                         {product.status}

@@ -1,38 +1,99 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Switch } from './ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Badge } from './ui/badge';
-import { UserPlus, Trash2, Shield, Bell, Database, Palette } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Switch } from "./ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Badge } from "./ui/badge";
+import {
+  UserPlus,
+  Trash2,
+  Shield,
+  Bell,
+  Database,
+  Palette,
+} from "lucide-react";
+import { toast } from "sonner";
 
 interface SettingsProps {
-  userRole: 'Admin' | 'Manager' | 'Staff';
+  userRole: "Admin" | "Manager" | "Staff";
 }
 
 const users = [
-  { id: 1, name: 'Admin User', email: 'admin@santrading.com', role: 'Admin', department: 'Management', status: 'Active' },
-  { id: 2, name: 'John Silva', email: 'john@santrading.com', role: 'Manager', department: 'Sales', status: 'Active' },
-  { id: 3, name: 'Sarah Fernando', email: 'sarah@santrading.com', role: 'Manager', department: 'Operations', status: 'Active' },
-  { id: 4, name: 'Michael Perera', email: 'michael@santrading.com', role: 'Staff', department: 'Finance', status: 'Active' },
-  { id: 5, name: 'Emma Jayawardena', email: 'emma@santrading.com', role: 'Staff', department: 'HR', status: 'Inactive' },
+  {
+    id: 1,
+    name: "Admin User",
+    email: "admin@santrading.com",
+    role: "Admin",
+    department: "Management",
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "John Silva",
+    email: "john@santrading.com",
+    role: "Manager",
+    department: "Sales",
+    status: "Active",
+  },
+  {
+    id: 3,
+    name: "Sarah Fernando",
+    email: "sarah@santrading.com",
+    role: "Manager",
+    department: "Operations",
+    status: "Active",
+  },
+  {
+    id: 4,
+    name: "Michael Perera",
+    email: "michael@santrading.com",
+    role: "Staff",
+    department: "Finance",
+    status: "Active",
+  },
+  {
+    id: 5,
+    name: "Emma Jayawardena",
+    email: "emma@santrading.com",
+    role: "Staff",
+    department: "HR",
+    status: "Inactive",
+  },
 ];
 
 const permissions = [
-  { module: 'Dashboard', admin: true, manager: true, staff: true },
-  { module: 'Sales & CRM', admin: true, manager: true, staff: true },
-  { module: 'Inventory', admin: true, manager: true, staff: true },
-  { module: 'Procurement', admin: true, manager: true, staff: false },
-  { module: 'Finance', admin: true, manager: true, staff: false },
-  { module: 'Human Resources', admin: true, manager: true, staff: false },
-  { module: 'Customer Service', admin: true, manager: true, staff: true },
-  { module: 'Reports', admin: true, manager: true, staff: false },
-  { module: 'Settings', admin: true, manager: false, staff: false },
+  { module: "Dashboard", admin: true, manager: true, staff: true },
+  { module: "Sales & CRM", admin: true, manager: true, staff: true },
+  { module: "Inventory", admin: true, manager: true, staff: true },
+  { module: "Procurement", admin: true, manager: true, staff: false },
+  { module: "Finance", admin: true, manager: true, staff: false },
+  { module: "Human Resources", admin: true, manager: true, staff: false },
+  { module: "Customer Service", admin: true, manager: true, staff: true },
+  { module: "Reports", admin: true, manager: true, staff: false },
+  { module: "Settings", admin: true, manager: false, staff: false },
 ];
 
 export default function Settings({ userRole }: SettingsProps) {
@@ -46,29 +107,32 @@ export default function Settings({ userRole }: SettingsProps) {
   });
 
   const handleAddUser = () => {
-    toast.success('User added successfully');
+    toast.success("User added successfully");
     setIsAddUserOpen(false);
   };
 
   const handleDeleteUser = (userId: number) => {
-    toast.success('User deleted successfully');
+    toast.success("User deleted successfully");
   };
 
   const handleSaveSettings = () => {
-    toast.success('Settings saved successfully');
+    toast.success("Settings saved successfully");
   };
 
-  if (userRole !== 'Admin') {
+  if (userRole !== "Admin") {
     return (
       <div className="flex items-center justify-center h-full">
         <Card className="max-w-md">
           <CardHeader>
             <CardTitle>Access Denied</CardTitle>
-            <CardDescription>You don't have permission to access settings</CardDescription>
+            <CardDescription>
+              You don't have permission to access settings
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-sm text-gray-600">
-              Only administrators can access the settings page. Please contact your system administrator if you need to make changes.
+              Only administrators can access the settings page. Please contact
+              your system administrator if you need to make changes.
             </p>
           </CardContent>
         </Card>
@@ -81,7 +145,9 @@ export default function Settings({ userRole }: SettingsProps) {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl">Settings</h1>
-          <p className="text-gray-600 mt-1">Manage system configuration and user access</p>
+          <p className="text-gray-600 mt-1">
+            Manage system configuration and user access
+          </p>
         </div>
       </div>
 
@@ -100,7 +166,9 @@ export default function Settings({ userRole }: SettingsProps) {
               <div className="flex justify-between items-center">
                 <div>
                   <CardTitle>User Accounts</CardTitle>
-                  <CardDescription>Manage user access and roles</CardDescription>
+                  <CardDescription>
+                    Manage user access and roles
+                  </CardDescription>
                 </div>
                 <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
                   <DialogTrigger asChild>
@@ -112,7 +180,9 @@ export default function Settings({ userRole }: SettingsProps) {
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>Add New User</DialogTitle>
-                      <DialogDescription>Create a new user account</DialogDescription>
+                      <DialogDescription>
+                        Create a new user account
+                      </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                       <div className="space-y-2">
@@ -121,7 +191,11 @@ export default function Settings({ userRole }: SettingsProps) {
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="user-email">Email</Label>
-                        <Input id="user-email" type="email" placeholder="user@santrading.com" />
+                        <Input
+                          id="user-email"
+                          type="email"
+                          placeholder="user@santrading.com"
+                        />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="user-role">Role</Label>
@@ -144,18 +218,31 @@ export default function Settings({ userRole }: SettingsProps) {
                           </SelectTrigger>
                           <SelectContent>
                             <SelectItem value="sales">Sales</SelectItem>
-                            <SelectItem value="operations">Operations</SelectItem>
+                            <SelectItem value="operations">
+                              Operations
+                            </SelectItem>
                             <SelectItem value="finance">Finance</SelectItem>
                             <SelectItem value="hr">HR</SelectItem>
-                            <SelectItem value="management">Management</SelectItem>
+                            <SelectItem value="management">
+                              Management
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="user-password">Temporary Password</Label>
-                        <Input id="user-password" type="password" placeholder="Enter temporary password" />
+                        <Label htmlFor="user-password">
+                          Temporary Password
+                        </Label>
+                        <Input
+                          id="user-password"
+                          type="password"
+                          placeholder="Enter temporary password"
+                        />
                       </div>
-                      <Button onClick={handleAddUser} className="w-full bg-blue-600 hover:bg-blue-700">
+                      <Button
+                        onClick={handleAddUser}
+                        className="w-full bg-blue-600 hover:bg-blue-700"
+                      >
                         Create User
                       </Button>
                     </div>
@@ -186,7 +273,11 @@ export default function Settings({ userRole }: SettingsProps) {
                         </td>
                         <td className="py-3 px-4">{user.department}</td>
                         <td className="py-3 px-4">
-                          <Badge variant={user.status === 'Active' ? 'default' : 'secondary'}>
+                          <Badge
+                            variant={
+                              user.status === "Active" ? "default" : "secondary"
+                            }
+                          >
                             {user.status}
                           </Badge>
                         </td>
@@ -217,7 +308,9 @@ export default function Settings({ userRole }: SettingsProps) {
                   Module Permissions
                 </div>
               </CardTitle>
-              <CardDescription>Configure access levels for different roles</CardDescription>
+              <CardDescription>
+                Configure access levels for different roles
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -232,7 +325,10 @@ export default function Settings({ userRole }: SettingsProps) {
                   </thead>
                   <tbody>
                     {permissions.map((perm) => (
-                      <tr key={perm.module} className="border-b hover:bg-gray-50">
+                      <tr
+                        key={perm.module}
+                        className="border-b hover:bg-gray-50"
+                      >
                         <td className="py-3 px-4">{perm.module}</td>
                         <td className="py-3 px-4 text-center">
                           <Switch checked={perm.admin} disabled />
@@ -249,7 +345,10 @@ export default function Settings({ userRole }: SettingsProps) {
                 </table>
               </div>
               <div className="mt-4">
-                <Button onClick={handleSaveSettings} className="bg-blue-600 hover:bg-blue-700">
+                <Button
+                  onClick={handleSaveSettings}
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
                   Save Permissions
                 </Button>
               </div>
@@ -261,33 +360,70 @@ export default function Settings({ userRole }: SettingsProps) {
           <Card>
             <CardHeader>
               <CardTitle>System Thresholds</CardTitle>
-              <CardDescription>Configure alerts and automation thresholds</CardDescription>
+              <CardDescription>
+                Configure alerts and automation thresholds
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <Label htmlFor="inventory-reorder">Inventory Reorder Level</Label>
-                    <Input id="inventory-reorder" type="number" defaultValue="100" />
-                    <p className="text-xs text-gray-600">Alert when stock falls below this level</p>
+                    <Label htmlFor="inventory-reorder">
+                      Inventory Reorder Level
+                    </Label>
+                    <Input
+                      id="inventory-reorder"
+                      type="number"
+                      defaultValue="100"
+                    />
+                    <p className="text-xs text-gray-600">
+                      Alert when stock falls below this level
+                    </p>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="low-stock-alert">Low Stock Alert Days</Label>
-                    <Input id="low-stock-alert" type="number" defaultValue="7" />
-                    <p className="text-xs text-gray-600">Days before reorder level to alert</p>
+                    <Label htmlFor="low-stock-alert">
+                      Low Stock Alert Days
+                    </Label>
+                    <Input
+                      id="low-stock-alert"
+                      type="number"
+                      defaultValue="7"
+                    />
+                    <p className="text-xs text-gray-600">
+                      Days before reorder level to alert
+                    </p>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="sales-target">Monthly Sales Target ($)</Label>
-                    <Input id="sales-target" type="number" defaultValue="90000" />
-                    <p className="text-xs text-gray-600">Target sales for performance tracking</p>
+                    <Label htmlFor="sales-target">
+                      Monthly Sales Target ($)
+                    </Label>
+                    <Input
+                      id="sales-target"
+                      type="number"
+                      defaultValue="90000"
+                    />
+                    <p className="text-xs text-gray-600">
+                      Target sales for performance tracking
+                    </p>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="attendance-threshold">Minimum Attendance (%)</Label>
-                    <Input id="attendance-threshold" type="number" defaultValue="90" />
-                    <p className="text-xs text-gray-600">Alert if attendance falls below</p>
+                    <Label htmlFor="attendance-threshold">
+                      Minimum Attendance (%)
+                    </Label>
+                    <Input
+                      id="attendance-threshold"
+                      type="number"
+                      defaultValue="90"
+                    />
+                    <p className="text-xs text-gray-600">
+                      Alert if attendance falls below
+                    </p>
                   </div>
                 </div>
-                <Button onClick={handleSaveSettings} className="bg-blue-600 hover:bg-blue-700">
+                <Button
+                  onClick={handleSaveSettings}
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
                   Save Thresholds
                 </Button>
               </div>
@@ -304,7 +440,9 @@ export default function Settings({ userRole }: SettingsProps) {
                   Notification Preferences
                 </div>
               </CardTitle>
-              <CardDescription>Configure how you receive system notifications</CardDescription>
+              <CardDescription>
+                Configure how you receive system notifications
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
@@ -312,11 +450,13 @@ export default function Settings({ userRole }: SettingsProps) {
                   <div className="flex items-center justify-between">
                     <div>
                       <h4>Email Notifications</h4>
-                      <p className="text-sm text-gray-600">Receive notifications via email</p>
+                      <p className="text-sm text-gray-600">
+                        Receive notifications via email
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.email}
-                      onCheckedChange={(checked) =>
+                      onCheckedChange={(checked: any) =>
                         setNotifications({ ...notifications, email: checked })
                       }
                     />
@@ -324,11 +464,13 @@ export default function Settings({ userRole }: SettingsProps) {
                   <div className="flex items-center justify-between">
                     <div>
                       <h4>SMS Notifications</h4>
-                      <p className="text-sm text-gray-600">Receive notifications via SMS</p>
+                      <p className="text-sm text-gray-600">
+                        Receive notifications via SMS
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.sms}
-                      onCheckedChange={(checked) =>
+                      onCheckedChange={(checked: any) =>
                         setNotifications({ ...notifications, sms: checked })
                       }
                     />
@@ -336,41 +478,59 @@ export default function Settings({ userRole }: SettingsProps) {
                   <div className="flex items-center justify-between">
                     <div>
                       <h4>Low Stock Alerts</h4>
-                      <p className="text-sm text-gray-600">Alert when inventory is low</p>
+                      <p className="text-sm text-gray-600">
+                        Alert when inventory is low
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.lowStock}
-                      onCheckedChange={(checked) =>
-                        setNotifications({ ...notifications, lowStock: checked })
+                      onCheckedChange={(checked: any) =>
+                        setNotifications({
+                          ...notifications,
+                          lowStock: checked,
+                        })
                       }
                     />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
                       <h4>New Order Notifications</h4>
-                      <p className="text-sm text-gray-600">Alert when new orders are received</p>
+                      <p className="text-sm text-gray-600">
+                        Alert when new orders are received
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.newOrders}
-                      onCheckedChange={(checked) =>
-                        setNotifications({ ...notifications, newOrders: checked })
+                      onCheckedChange={(checked: any) =>
+                        setNotifications({
+                          ...notifications,
+                          newOrders: checked,
+                        })
                       }
                     />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
                       <h4>Leave Request Alerts</h4>
-                      <p className="text-sm text-gray-600">Alert for pending leave requests</p>
+                      <p className="text-sm text-gray-600">
+                        Alert for pending leave requests
+                      </p>
                     </div>
                     <Switch
                       checked={notifications.leaveRequests}
-                      onCheckedChange={(checked) =>
-                        setNotifications({ ...notifications, leaveRequests: checked })
+                      onCheckedChange={(checked: any) =>
+                        setNotifications({
+                          ...notifications,
+                          leaveRequests: checked,
+                        })
                       }
                     />
                   </div>
                 </div>
-                <Button onClick={handleSaveSettings} className="bg-blue-600 hover:bg-blue-700">
+                <Button
+                  onClick={handleSaveSettings}
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
                   Save Notification Settings
                 </Button>
               </div>
@@ -387,17 +547,23 @@ export default function Settings({ userRole }: SettingsProps) {
                   System Information
                 </div>
               </CardTitle>
-              <CardDescription>Application and database details</CardDescription>
+              <CardDescription>
+                Application and database details
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="border rounded-lg p-4">
-                    <p className="text-sm text-gray-600 mb-1">Application Version</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      Application Version
+                    </p>
                     <p className="text-xl">v2.4.1</p>
                   </div>
                   <div className="border rounded-lg p-4">
-                    <p className="text-sm text-gray-600 mb-1">Database Status</p>
+                    <p className="text-sm text-gray-600 mb-1">
+                      Database Status
+                    </p>
                     <p className="text-xl text-green-600">Connected</p>
                   </div>
                   <div className="border rounded-lg p-4">

@@ -1,52 +1,138 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Badge } from './ui/badge';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Plus, Search, Filter, FileText, Eye } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Badge } from "./ui/badge";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { Plus, Search, Filter, FileText, Eye } from "lucide-react";
+import { toast } from "sonner";
 
 const customers = [
-  { id: 1, name: 'ABC Construction Ltd', email: 'abc@construction.com', phone: '+94 77 123 4567', type: 'Corporate' },
-  { id: 2, name: 'XYZ Builders', email: 'xyz@builders.lk', phone: '+94 77 234 5678', type: 'Corporate' },
-  { id: 3, name: 'Prime Projects', email: 'info@primeprojects.com', phone: '+94 77 345 6789', type: 'Corporate' },
-  { id: 4, name: 'Metro Contractors', email: 'metro@contractors.lk', phone: '+94 77 456 7890', type: 'Individual' },
+  {
+    id: 1,
+    name: "ABC Construction Ltd",
+    email: "abc@construction.com",
+    phone: "+94 77 123 4567",
+    type: "Corporate",
+  },
+  {
+    id: 2,
+    name: "XYZ Builders",
+    email: "xyz@builders.lk",
+    phone: "+94 77 234 5678",
+    type: "Corporate",
+  },
+  {
+    id: 3,
+    name: "Prime Projects",
+    email: "info@primeprojects.com",
+    phone: "+94 77 345 6789",
+    type: "Corporate",
+  },
+  {
+    id: 4,
+    name: "Metro Contractors",
+    email: "metro@contractors.lk",
+    phone: "+94 77 456 7890",
+    type: "Individual",
+  },
 ];
 
 const orders = [
-  { id: 'ORD-001', customer: 'ABC Construction Ltd', date: '2025-10-20', total: 15000, status: 'Delivered', items: 12 },
-  { id: 'ORD-002', customer: 'XYZ Builders', date: '2025-10-21', total: 22000, status: 'Pending', items: 8 },
-  { id: 'ORD-003', customer: 'Prime Projects', date: '2025-10-22', total: 18000, status: 'Approved', items: 15 },
-  { id: 'ORD-004', customer: 'Metro Contractors', date: '2025-10-23', total: 12000, status: 'Delivered', items: 6 },
-  { id: 'ORD-005', customer: 'ABC Construction Ltd', date: '2025-10-24', total: 25000, status: 'Pending', items: 20 },
+  {
+    id: "ORD-001",
+    customer: "ABC Construction Ltd",
+    date: "2025-10-20",
+    total: 15000,
+    status: "Delivered",
+    items: 12,
+  },
+  {
+    id: "ORD-002",
+    customer: "XYZ Builders",
+    date: "2025-10-21",
+    total: 22000,
+    status: "Pending",
+    items: 8,
+  },
+  {
+    id: "ORD-003",
+    customer: "Prime Projects",
+    date: "2025-10-22",
+    total: 18000,
+    status: "Approved",
+    items: 15,
+  },
+  {
+    id: "ORD-004",
+    customer: "Metro Contractors",
+    date: "2025-10-23",
+    total: 12000,
+    status: "Delivered",
+    items: 6,
+  },
+  {
+    id: "ORD-005",
+    customer: "ABC Construction Ltd",
+    date: "2025-10-24",
+    total: 25000,
+    status: "Pending",
+    items: 20,
+  },
 ];
 
 const topProducts = [
-  { name: 'Cement Bags', sales: 450 },
-  { name: 'Steel Rods', sales: 380 },
-  { name: 'Electrical Wire', sales: 320 },
-  { name: 'PVC Pipes', sales: 280 },
-  { name: 'Paint Cans', sales: 240 },
+  { name: "Cement Bags", sales: 450 },
+  { name: "Steel Rods", sales: 380 },
+  { name: "Electrical Wire", sales: 320 },
+  { name: "PVC Pipes", sales: 280 },
+  { name: "Paint Cans", sales: 240 },
 ];
 
 export default function Sales() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeTab, setActiveTab] = useState('orders');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("orders");
   const [isNewOrderOpen, setIsNewOrderOpen] = useState(false);
   const [isNewCustomerOpen, setIsNewCustomerOpen] = useState(false);
 
   const handleCreateOrder = () => {
-    toast.success('Order created successfully');
+    toast.success("Order created successfully");
     setIsNewOrderOpen(false);
   };
 
   const handleCreateCustomer = () => {
-    toast.success('Customer added successfully');
+    toast.success("Customer added successfully");
     setIsNewCustomerOpen(false);
   };
 
@@ -68,7 +154,9 @@ export default function Sales() {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Add New Customer</DialogTitle>
-                <DialogDescription>Enter customer details below</DialogDescription>
+                <DialogDescription>
+                  Enter customer details below
+                </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
@@ -77,7 +165,11 @@ export default function Sales() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="customer-email">Email</Label>
-                  <Input id="customer-email" type="email" placeholder="customer@example.com" />
+                  <Input
+                    id="customer-email"
+                    type="email"
+                    placeholder="customer@example.com"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="customer-phone">Phone</Label>
@@ -95,7 +187,10 @@ export default function Sales() {
                     </SelectContent>
                   </Select>
                 </div>
-                <Button onClick={handleCreateCustomer} className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button
+                  onClick={handleCreateCustomer}
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                >
                   Add Customer
                 </Button>
               </div>
@@ -123,7 +218,10 @@ export default function Sales() {
                     </SelectTrigger>
                     <SelectContent>
                       {customers.map((customer) => (
-                        <SelectItem key={customer.id} value={customer.id.toString()}>
+                        <SelectItem
+                          key={customer.id}
+                          value={customer.id.toString()}
+                        >
                           {customer.name}
                         </SelectItem>
                       ))}
@@ -144,7 +242,10 @@ export default function Sales() {
                     <Input id="order-price" type="number" placeholder="0.00" />
                   </div>
                 </div>
-                <Button onClick={handleCreateOrder} className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button
+                  onClick={handleCreateOrder}
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                >
                   Create Order
                 </Button>
               </div>
@@ -249,15 +350,17 @@ export default function Sales() {
                         <td className="py-3 px-4">{order.customer}</td>
                         <td className="py-3 px-4">{order.date}</td>
                         <td className="py-3 px-4">{order.items}</td>
-                        <td className="py-3 px-4">${order.total.toLocaleString()}</td>
+                        <td className="py-3 px-4">
+                          ${order.total.toLocaleString()}
+                        </td>
                         <td className="py-3 px-4">
                           <Badge
                             variant={
-                              order.status === 'Delivered'
-                                ? 'default'
-                                : order.status === 'Pending'
-                                ? 'secondary'
-                                : 'outline'
+                              order.status === "Delivered"
+                                ? "default"
+                                : order.status === "Pending"
+                                ? "secondary"
+                                : "outline"
                             }
                           >
                             {order.status}
@@ -293,7 +396,10 @@ export default function Sales() {
                   </thead>
                   <tbody>
                     {customers.map((customer) => (
-                      <tr key={customer.id} className="border-b hover:bg-gray-50">
+                      <tr
+                        key={customer.id}
+                        className="border-b hover:bg-gray-50"
+                      >
                         <td className="py-3 px-4">{customer.name}</td>
                         <td className="py-3 px-4">{customer.email}</td>
                         <td className="py-3 px-4">{customer.phone}</td>

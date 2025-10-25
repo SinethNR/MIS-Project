@@ -1,47 +1,59 @@
-import { useState } from 'react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Building2, Lock, Mail } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Building2, Lock, Mail } from "lucide-react";
+import { toast } from "sonner";
 
 interface LoginProps {
-  onLogin: (role: 'Admin' | 'Manager' | 'Staff') => void;
+  onLogin: (role: "Admin" | "Manager" | "Staff") => void;
 }
 
 export default function Login({ onLogin }: LoginProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState<'Admin' | 'Manager' | 'Staff'>('Admin');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState<"Admin" | "Manager" | "Staff">("Admin");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-  const [resetEmail, setResetEmail] = useState('');
+  const [resetEmail, setResetEmail] = useState("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
-      toast.error('Please fill in all fields');
+      toast.error("Please fill in all fields");
       return;
     }
 
     // Simulate login validation
-    toast.success('Login successful!');
+    toast.success("Login successful!");
     onLogin(role);
   };
 
   const handlePasswordReset = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!resetEmail) {
-      toast.error('Please enter your email');
+      toast.error("Please enter your email");
       return;
     }
 
-    toast.success('Password reset link sent to your email');
+    toast.success("Password reset link sent to your email");
     setShowForgotPassword(false);
-    setResetEmail('');
+    setResetEmail("");
   };
 
   return (
@@ -54,7 +66,9 @@ export default function Login({ onLogin }: LoginProps) {
           <div>
             <CardTitle className="text-2xl">San Trading Enterprises</CardTitle>
             <CardDescription className="mt-2">
-              {showForgotPassword ? 'Reset Your Password' : 'Integrated Information System'}
+              {showForgotPassword
+                ? "Reset Your Password"
+                : "Integrated Information System"}
             </CardDescription>
           </div>
         </CardHeader>
@@ -75,7 +89,10 @@ export default function Login({ onLogin }: LoginProps) {
                   />
                 </div>
               </div>
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
                 Send Reset Link
               </Button>
               <Button
@@ -91,7 +108,12 @@ export default function Login({ onLogin }: LoginProps) {
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="role">Login As</Label>
-                <Select value={role} onValueChange={(value: 'Admin' | 'Manager' | 'Staff') => setRole(value)}>
+                <Select
+                  value={role}
+                  onValueChange={(value: "Admin" | "Manager" | "Staff") =>
+                    setRole(value)
+                  }
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -139,7 +161,10 @@ export default function Login({ onLogin }: LoginProps) {
                   Forgot password?
                 </button>
               </div>
-              <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
                 Sign In
               </Button>
             </form>

@@ -1,47 +1,151 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Badge } from './ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Plus, Search, Star, Clock, DollarSign, TrendingUp } from 'lucide-react';
-import { toast } from 'sonner@2.0.3';
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Badge } from "./ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import {
+  Plus,
+  Search,
+  Star,
+  Clock,
+  DollarSign,
+  TrendingUp,
+} from "lucide-react";
+import { toast } from "sonner";
 
 const suppliers = [
-  { id: 1, name: 'Lanka Cement Co.', category: 'Construction', rating: 4.5, deliveryTime: '3-5 days', costRating: 'Competitive', reliability: 95 },
-  { id: 2, name: 'Steel Masters Ltd', category: 'Construction', rating: 4.8, deliveryTime: '2-4 days', costRating: 'Premium', reliability: 98 },
-  { id: 3, name: 'Electro Supplies', category: 'Electrical', rating: 4.2, deliveryTime: '5-7 days', costRating: 'Budget', reliability: 88 },
-  { id: 4, name: 'PVC Industries', category: 'Plumbing', rating: 4.6, deliveryTime: '3-6 days', costRating: 'Competitive', reliability: 92 },
+  {
+    id: 1,
+    name: "Lanka Cement Co.",
+    category: "Construction",
+    rating: 4.5,
+    deliveryTime: "3-5 days",
+    costRating: "Competitive",
+    reliability: 95,
+  },
+  {
+    id: 2,
+    name: "Steel Masters Ltd",
+    category: "Construction",
+    rating: 4.8,
+    deliveryTime: "2-4 days",
+    costRating: "Premium",
+    reliability: 98,
+  },
+  {
+    id: 3,
+    name: "Electro Supplies",
+    category: "Electrical",
+    rating: 4.2,
+    deliveryTime: "5-7 days",
+    costRating: "Budget",
+    reliability: 88,
+  },
+  {
+    id: 4,
+    name: "PVC Industries",
+    category: "Plumbing",
+    rating: 4.6,
+    deliveryTime: "3-6 days",
+    costRating: "Competitive",
+    reliability: 92,
+  },
 ];
 
 const purchaseOrders = [
-  { id: 'PO-001', supplier: 'Lanka Cement Co.', date: '2025-10-20', items: 'Cement Bags x 500', total: 425000, status: 'Approved' },
-  { id: 'PO-002', supplier: 'Steel Masters Ltd', date: '2025-10-21', items: 'Steel Rods x 200', total: 240000, status: 'Pending' },
-  { id: 'PO-003', supplier: 'Electro Supplies', date: '2025-10-22', items: 'Electrical Wire x 100', total: 250000, status: 'Delivered' },
-  { id: 'PO-004', supplier: 'PVC Industries', date: '2025-10-23', items: 'PVC Pipes x 300', total: 135000, status: 'In Transit' },
+  {
+    id: "PO-001",
+    supplier: "Lanka Cement Co.",
+    date: "2025-10-20",
+    items: "Cement Bags x 500",
+    total: 425000,
+    status: "Approved",
+  },
+  {
+    id: "PO-002",
+    supplier: "Steel Masters Ltd",
+    date: "2025-10-21",
+    items: "Steel Rods x 200",
+    total: 240000,
+    status: "Pending",
+  },
+  {
+    id: "PO-003",
+    supplier: "Electro Supplies",
+    date: "2025-10-22",
+    items: "Electrical Wire x 100",
+    total: 250000,
+    status: "Delivered",
+  },
+  {
+    id: "PO-004",
+    supplier: "PVC Industries",
+    date: "2025-10-23",
+    items: "PVC Pipes x 300",
+    total: 135000,
+    status: "In Transit",
+  },
 ];
 
 const quotations = [
-  { supplier: 'Lanka Cement Co.', product: 'Cement Bags', price: 850, leadTime: '3 days', quantity: 500 },
-  { supplier: 'Building Materials Inc', product: 'Cement Bags', price: 820, leadTime: '5 days', quantity: 500 },
-  { supplier: 'Construction Depot', product: 'Cement Bags', price: 875, leadTime: '2 days', quantity: 500 },
+  {
+    supplier: "Lanka Cement Co.",
+    product: "Cement Bags",
+    price: 850,
+    leadTime: "3 days",
+    quantity: 500,
+  },
+  {
+    supplier: "Building Materials Inc",
+    product: "Cement Bags",
+    price: 820,
+    leadTime: "5 days",
+    quantity: 500,
+  },
+  {
+    supplier: "Construction Depot",
+    product: "Cement Bags",
+    price: 875,
+    leadTime: "2 days",
+    quantity: 500,
+  },
 ];
 
 export default function Procurement() {
   const [isNewPOOpen, setIsNewPOOpen] = useState(false);
   const [isNewSupplierOpen, setIsNewSupplierOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('orders');
+  const [activeTab, setActiveTab] = useState("orders");
 
   const handleCreatePO = () => {
-    toast.success('Purchase order created successfully');
+    toast.success("Purchase order created successfully");
     setIsNewPOOpen(false);
   };
 
   const handleAddSupplier = () => {
-    toast.success('Supplier added successfully');
+    toast.success("Supplier added successfully");
     setIsNewSupplierOpen(false);
   };
 
@@ -50,7 +154,9 @@ export default function Procurement() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl">Procurement & Suppliers</h1>
-          <p className="text-gray-600 mt-1">Manage purchase orders and supplier relationships</p>
+          <p className="text-gray-600 mt-1">
+            Manage purchase orders and supplier relationships
+          </p>
         </div>
         <div className="flex gap-3">
           <Dialog open={isNewSupplierOpen} onOpenChange={setIsNewSupplierOpen}>
@@ -89,13 +195,20 @@ export default function Procurement() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="supplier-email">Email</Label>
-                  <Input id="supplier-email" type="email" placeholder="supplier@example.com" />
+                  <Input
+                    id="supplier-email"
+                    type="email"
+                    placeholder="supplier@example.com"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="supplier-phone">Phone</Label>
                   <Input id="supplier-phone" placeholder="+94 77 123 4567" />
                 </div>
-                <Button onClick={handleAddSupplier} className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button
+                  onClick={handleAddSupplier}
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                >
                   Add Supplier
                 </Button>
               </div>
@@ -112,7 +225,9 @@ export default function Procurement() {
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Create Purchase Order</DialogTitle>
-                <DialogDescription>Fill in purchase order details</DialogDescription>
+                <DialogDescription>
+                  Fill in purchase order details
+                </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
@@ -123,7 +238,10 @@ export default function Procurement() {
                     </SelectTrigger>
                     <SelectContent>
                       {suppliers.map((supplier) => (
-                        <SelectItem key={supplier.id} value={supplier.id.toString()}>
+                        <SelectItem
+                          key={supplier.id}
+                          value={supplier.id.toString()}
+                        >
                           {supplier.name}
                         </SelectItem>
                       ))}
@@ -148,7 +266,10 @@ export default function Procurement() {
                   <Label htmlFor="po-delivery">Expected Delivery</Label>
                   <Input id="po-delivery" type="date" />
                 </div>
-                <Button onClick={handleCreatePO} className="w-full bg-blue-600 hover:bg-blue-700">
+                <Button
+                  onClick={handleCreatePO}
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                >
                   Create Purchase Order
                 </Button>
               </div>
@@ -206,7 +327,9 @@ export default function Procurement() {
       <Card>
         <CardHeader>
           <CardTitle>Quotation Comparison</CardTitle>
-          <CardDescription>Compare supplier quotes for Cement Bags</CardDescription>
+          <CardDescription>
+            Compare supplier quotes for Cement Bags
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
@@ -228,11 +351,18 @@ export default function Procurement() {
                     <td className="py-3 px-4">{quote.supplier}</td>
                     <td className="py-3 px-4">{quote.product}</td>
                     <td className="py-3 px-4">{quote.quantity}</td>
-                    <td className="py-3 px-4">{quote.price.toLocaleString()}</td>
-                    <td className="py-3 px-4">{(quote.price * quote.quantity).toLocaleString()}</td>
+                    <td className="py-3 px-4">
+                      {quote.price.toLocaleString()}
+                    </td>
+                    <td className="py-3 px-4">
+                      {(quote.price * quote.quantity).toLocaleString()}
+                    </td>
                     <td className="py-3 px-4">{quote.leadTime}</td>
                     <td className="py-3 px-4">
-                      <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      <Button
+                        size="sm"
+                        className="bg-blue-600 hover:bg-blue-700"
+                      >
                         Select
                       </Button>
                     </td>
@@ -281,15 +411,17 @@ export default function Procurement() {
                         <td className="py-3 px-4">{po.supplier}</td>
                         <td className="py-3 px-4">{po.date}</td>
                         <td className="py-3 px-4">{po.items}</td>
-                        <td className="py-3 px-4">{po.total.toLocaleString()}</td>
+                        <td className="py-3 px-4">
+                          {po.total.toLocaleString()}
+                        </td>
                         <td className="py-3 px-4">
                           <Badge
                             variant={
-                              po.status === 'Delivered'
-                                ? 'default'
-                                : po.status === 'Pending'
-                                ? 'secondary'
-                                : 'outline'
+                              po.status === "Delivered"
+                                ? "default"
+                                : po.status === "Pending"
+                                ? "secondary"
+                                : "outline"
                             }
                           >
                             {po.status}
@@ -316,7 +448,10 @@ export default function Procurement() {
                   </thead>
                   <tbody>
                     {suppliers.map((supplier) => (
-                      <tr key={supplier.id} className="border-b hover:bg-gray-50">
+                      <tr
+                        key={supplier.id}
+                        className="border-b hover:bg-gray-50"
+                      >
                         <td className="py-3 px-4">{supplier.name}</td>
                         <td className="py-3 px-4">{supplier.category}</td>
                         <td className="py-3 px-4">
@@ -337,7 +472,9 @@ export default function Procurement() {
                                 style={{ width: `${supplier.reliability}%` }}
                               />
                             </div>
-                            <span className="text-sm">{supplier.reliability}%</span>
+                            <span className="text-sm">
+                              {supplier.reliability}%
+                            </span>
                           </div>
                         </td>
                       </tr>
